@@ -1,0 +1,18 @@
+# Working notes and anything written in Seth's voice. Never tracked.
+private/
+
+__pycache__/
+*.pyc
+mod/build/
+mod/dist/
+
+# API keys.
+keys.local.env
+*.local.env
+.env
+.env.*
+!*.example
+
+# Editor settings.
+.vscode/
+.idea/
