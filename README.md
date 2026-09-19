@@ -27,12 +27,17 @@ Then set the multiplier in `MasterStack.ini` and restart the game:
 items raised and keeps every session's log, which is what to send with a report.
 
 With [Master Looter](https://www.nexusmods.com/crimsondesert/mods/3402) 1.6.33 or
-later you can change the multiplier from its Stacks tab in game, and it takes
-effect the next time you start.
+later you can change the multiplier from its Stacks tab in game. Raising it takes
+hold straight away if [Private Storage
+Master](https://www.nexusmods.com/crimsondesert/mods/3521) is installed as well,
+because this mod borrows its free-play check to know when that is safe. On its
+own, and for any smaller number, the change waits for the next start.
 
 ## Turning it back down
 
-A multiplier is read once when the game starts, so a change needs a restart.
+Lowering the multiplier always waits for the next start. A slot can hold more
+than the game allows, and shrinking a limit under a stack already over it would
+leave it stranded there.
 
 Your save records the stacks you build, so a slot can still hold more than the
 game allows after you set the multiplier back to 1. It keeps what is in it until
@@ -58,6 +63,22 @@ configure time for its instruction length decoder; pass
 For other plugins, [mod/include/stack_api.h](mod/include/stack_api.h) is the
 versioned C interface Master Looter's Stacks tab uses. Private Storage Master
 exports the same names, so a caller finds whichever is installed.
+
+## Antivirus
+
+A scanner or two may flag the plugin, because the shape of what it does looks
+like a trainer to a model: it is a DLL loaded into the game that searches the
+game's code for a byte pattern and writes a jump over one of its functions. It
+imports only kernel32 and user32, so there is no network code in it, and it reads
+and writes no registry key and no game file. It is code signed by Seth Walker
+under Microsoft's identity-verified chain. Every line is here to read or build
+yourself.
+
+SHA-256 for 1.0.0:
+
+    4b002d4eaddc3eeb031627c5f1239666e742e83855c82bbd9ad2bfabef3a9cd0  MasterStack-1.0.0-DMM.zip
+    b8a2152943f10bc766c1e35d9c96f5645a7dd11f96321b9c85b0093fe4a9a899  MasterStack-1.0.0.zip
+    6bb2525489715323ccf87f5ac16fd8cabdbc63da545204ee1b9783f26f535eee  MasterStack.asi
 
 ## Discord and Patreon
 

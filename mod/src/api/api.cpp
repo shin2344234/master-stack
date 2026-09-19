@@ -10,6 +10,7 @@
 #include <cstdio>
 #include <cstring>
 
+#include "core/log.h"
 #include "core/settings.h"
 #include "stacks/stacks.h"
 #include "version.h"
@@ -33,25 +34,36 @@ STACK_EXPORT int StackApiVersion(void) { return STACK_API_VERSION; }
 
 STACK_EXPORT int StackGetStatus(StackStatus* out)
 {
-    if (!out || out->size != sizeof *out) return 0;
+    // Any size from the first published layout upward, so a caller built against
+    // an older header keeps working: it is a prefix of this struct, it gets the
+    // fields it knows, and `size` comes back saying how many bytes were written.
+    if (!out || out->size < static_cast<uint32_t>(STACK_STATUS_V1)) return 0;
+    const uint32_t want = out->size < sizeof(StackStatus) ? out->size : static_cast<uint32_t>(sizeof(StackStatus));
     const mst::stacks::Report r = mst::stacks::Status();
-    memset(out, 0, sizeof *out);
-    out->size = sizeof *out;
-    snprintf(out->provider, sizeof out->provider, "%s", MST_NAME);
-    snprintf(out->providerModule, sizeof out->providerModule, "%s", MST_MODULE);
-    snprintf(out->version, sizeof out->version, "%s", MST_VERSION);
-    snprintf(out->gameVersion, sizeof out->gameVersion, "%s", MST_GAME);
-    out->applying = r.reason == mst::stacks::kApplying;
-    out->standDownReason = r.reason;
-    out->hooked = r.hooked;
-    out->multiplier = r.multiplier;
-    out->multiplierSetting = mst::Settings::Get().multiplier;
-    out->restartNeeded = mst::Settings::RestartNeeded();
-    out->itemsRaised = r.patched;
-    out->itemsUnstackable = r.unstackable;
-    out->ceiling = STACK_CEILING;
-    out->maxMultiplier = STACK_MAX_MULTIPLIER;
-    out->biggest = r.biggest;
+    StackStatus full;
+    StackStatus* const fill = &full;
+    memset(fill, 0, sizeof full);
+    fill->size = want;
+    snprintf(fill->provider, sizeof fill->provider, "%s", MST_NAME);
+    snprintf(fill->providerModule, sizeof fill->providerModule, "%s", MST_MODULE);
+    snprintf(fill->version, sizeof fill->version, "%s", MST_VERSION);
+    snprintf(fill->gameVersion, sizeof fill->gameVersion, "%s", MST_GAME);
+    fill->applying = r.reason == mst::stacks::kApplying;
+    fill->standDownReason = r.reason;
+    fill->hooked = r.hooked;
+    fill->multiplier = r.multiplier;
+    fill->multiplierSetting = mst::Settings::Get().multiplier;
+    // Against what is in force, not against what the launch started with: a live
+    // raise makes the two agree, and then no restart is needed. Enabled=0 is the
+    // other half of RestartNeeded and is reported as a stand-down, not here.
+    fill->restartNeeded = fill->multiplierSetting != fill->multiplier;
+    fill->itemsRaised = r.patched;
+    fill->itemsUnstackable = r.unstackable;
+    fill->ceiling = STACK_CEILING;
+    fill->maxMultiplier = STACK_MAX_MULTIPLIER;
+    fill->liveRaise = mst::stacks::CanRaiseNow();
+    fill->biggest = r.biggest;
+    memcpy(out, fill, want);
     return 1;
 }
 
@@ -99,5 +111,11 @@ STACK_EXPORT int StackApplyMultiplier(int multiplier, char* why, int whyLen)
         return 0;
     }
     const auto change = [multiplier](mst::Settings::Values& v) { v.multiplier = multiplier; };
-    return mst::Settings::Update(change, why, why && whyLen > 0 ? static_cast<size_t>(whyLen) : 0) ? 1 : 0;
+    if (!mst::Settings::Update(change, why, why && whyLen > 0 ? static_cast<size_t>(whyLen) : 0)) return 0;
+    // Raising can take hold now. Anything else waits for the next launch, which
+    // the caller sees as restartNeeded on its next status read. A refusal there is
+    // not a failure of this call: the setting is saved either way.
+    char note[192];
+    if (!mst::stacks::RaiseNow(multiplier, note, sizeof note)) LOG("[stacks] x%d is saved for the next launch. Not now, because %s.", multiplier, note);
+    return 1;
 }

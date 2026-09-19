@@ -24,6 +24,21 @@ namespace mst::stacks
     void Flush();
     void Stop();
 
+    // Raise the limits already in memory to a bigger multiplier, without a
+    // restart. Only upwards: a slot can hold more than the game allows, so
+    // lowering a limit under a stack already over it is left to the next launch,
+    // where the game builds everything from the raised data itself.
+    //
+    // False when it cannot be done now, with the reason in `why`. The setting is
+    // saved by whoever called this either way.
+    bool RaiseNow(int multiplier, char* why, size_t whyLen);
+    // Whether a raise could apply this session at all. It needs the hook and a
+    // way to tell that the player is in free play with no storage screen open,
+    // which this mod gets from Private Storage Master when that is installed. On
+    // its own it has no view of the game's screens, so it answers false and a new
+    // multiplier waits for the next launch.
+    bool CanRaiseNow();
+
     struct Report
     {
         bool hooked = false;

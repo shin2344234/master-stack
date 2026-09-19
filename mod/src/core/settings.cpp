@@ -43,7 +43,11 @@ namespace mst::Settings
                     "; stay. Items the game does not stack, like gear and quest items, never\n"
                     "; start stacking, and no stack is taken past 999999. An item the game\n"
                     "; already lets you hold more of than that, such as money, is left alone.\n"
-                    "; The change takes effect the next time the game starts.\n"
+                    "; A change made here takes effect the next time the game starts, because this\n"
+                    "; file is read once. Raising it from Master Looter's Stacks tab takes hold\n"
+                    "; straight away when Private Storage Master is installed too, since this mod\n"
+                    "; borrows its free-play check; a smaller number always waits for the next\n"
+                    "; start, and so does any change made on its own.\n"
                     "; Your save does record the bigger stacks you build, so if you set this\n"
                     "; back to 1 a slot can still hold more than the game allows. It keeps what\n"
                     "; is in it until you take some out. Empty the big stacks first.\n"
@@ -161,6 +165,9 @@ namespace mst::Settings
     {
         const Values& a = Get();
         const Values& b = Startup();
-        return a.enabled != b.enabled || a.multiplier != b.multiplier;
+        // The multiplier is left out on purpose: a raise can take effect without a
+        // restart, so whether stacks need one is stacks/stacks' answer to give,
+        // through StackGetStatus, not a comparison against the launch.
+        return a.enabled != b.enabled;
     }
 }
