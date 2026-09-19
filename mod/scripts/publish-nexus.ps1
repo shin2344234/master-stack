@@ -84,8 +84,8 @@ Write-Host ("Version $Version, from version.h") -ForegroundColor Cyan
 # once in the duplicate check and once in the arguments, which is one edit away
 # from a release attaching itself to the wrong file entry.
 $ids = @{
-    FileId = ''   # the active "MasterStack ... DMM" entry, from nexus-ids.py
-    ModId  = ''   # the v3 mod id, not the page number in the URL
+    FileId = ''   # the active "MasterStack ... DMM" entry, from nexus-ids.py once it exists
+    ModId  = '38521561681372'   # the v3 mod id, not the page number in the URL (page 3548)
 }
 if ([string]::IsNullOrWhiteSpace($ids.FileId) -or [string]::IsNullOrWhiteSpace($ids.ModId)) {
     throw "The Nexus ids are not set. Create the page, run nexus-ids.py, and fill in `$ids in this script."
