@@ -30,7 +30,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 KEYFILE = os.path.join(HERE, "keys.local.env")
 PAGE_ID = "3548"   # the number in the mod page URL; set once the page exists
 NEXUS_FILES = "https://www.nexusmods.com/crimsondesert/mods/%s?tab=files" % PAGE_ID
-GITHUB_RELEASE = "https://github.com/shin2344234/private-storage-master/releases/tag/v%s"
+GITHUB_RELEASE = "https://github.com/shin2344234/stack-master/releases/tag/v%s"
 RELEASES_CHANNEL = "1547305058922668072"   # mod-releases
 LIMIT = 1900
 

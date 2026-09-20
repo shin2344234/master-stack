@@ -84,7 +84,7 @@ Write-Host ("Version $Version, from version.h") -ForegroundColor Cyan
 # once in the duplicate check and once in the arguments, which is one edit away
 # from a release attaching itself to the wrong file entry.
 $ids = @{
-    FileId = ''   # the active "StackMaster ... DMM" entry, from nexus-ids.py once it exists
+    FileId = '7995894'   # the active "StackMaster 1.0.0 DMM" entry; the manual entry is 7995897
     ModId  = '38521561681372'   # the v3 mod id, not the page number in the URL (page 3548)
 }
 if ([string]::IsNullOrWhiteSpace($ids.FileId) -or [string]::IsNullOrWhiteSpace($ids.ModId)) {
