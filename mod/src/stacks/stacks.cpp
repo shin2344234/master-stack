@@ -192,8 +192,14 @@ namespace sm::stacks
     bool RaiseNow(int multiplier, char* why, size_t whyLen)
     {
         const auto no = [&](const char* text) { if (why && whyLen) snprintf(why, whyLen, "%s", text); return false; };
-        if (!CanRaiseNow())
+        if (!g_hooked.load() || g_reason.load() != kApplying)
             return no("stacks are not being changed at all this session");
+        // Said before the multiplier is looked at, because with no way to test for
+        // free play every change waits for the next start whichever way it goes.
+        // Saying stacks are not being changed here would be wrong: they are.
+        if (!FreePlayAvailable())
+            return no("knowing when a change is safe to make takes Private Storage Master, which is not installed, so a "
+                      "change here waits for the next start");
         const int now = g_multiplier.load();
         if (multiplier <= now)
             return no("a smaller multiplier cannot touch stacks already built, because a slot holding more than the game "
@@ -202,8 +208,7 @@ namespace sm::stacks
         // these limits when it opens, so changing them underneath one is asking
         // for a screen that disagrees with the data.
         if (!FreePlayNow())
-            return no("raising a stack size needs free play with no storage screen open, which this mod can only tell "
-                      "with Private Storage Master installed");
+            return no("raising a stack size needs free play with no storage screen open");
         const int count = g_entryCount.load();
         int changed = 0, skipped = 0;
         int64_t biggest = 0;

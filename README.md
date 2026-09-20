@@ -76,9 +76,9 @@ yourself.
 
 SHA-256 for 1.0.0:
 
-    d2cb122d155b731b93b51b08e69395e6616d82c23de93720e5177e972f0b1916  StackMaster-1.0.0-DMM.zip
-    cba8413d924bd23c46f6de3228ce0d49c0f56894ea0e8da8f48a10cf9a983100  StackMaster-1.0.0.zip
-    d6d47568d76e554d45f0cb77024b3e959cd038684dc10eedab84f84febcd2780  StackMaster.asi
+    37483b08773e8f40ebbb671395d49cd2c39e46003af30f9dbc9b90fd8da44b28  StackMaster-1.0.0-DMM.zip
+    b294d98cec0615aea776acd1e13e4f498f013cbb94000957c68a3433daf48142  StackMaster-1.0.0.zip
+    7eb1e71644466c2f8d42c1440b590402b42f065e442557eddcf9cc758c315319  StackMaster.asi
 
 ## Discord and Patreon
 
