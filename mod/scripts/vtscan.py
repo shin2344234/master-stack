@@ -39,18 +39,18 @@ DIST = os.path.join(MOD, "dist")
 # The order the README and the description list them.
 def release_files(version):
     return [
-        ("MasterStack-%s-DMM.zip" % version, "the DMM archive"),
-        ("MasterStack-%s.zip" % version, "the full archive"),
-        ("MasterStack.asi", "the plugin"),
+        ("StackMaster-%s-DMM.zip" % version, "the DMM archive"),
+        ("StackMaster-%s.zip" % version, "the full archive"),
+        ("StackMaster.asi", "the plugin"),
     ]
 
 
 def version_from_header():
     h = os.path.join(MOD, "src", "version.h")
     text = io.open(h, encoding="utf-8").read()
-    m = re.search(r'#define\s+MST_VERSION\s+"([^"]+)"', text)
+    m = re.search(r'#define\s+SM_VERSION\s+"([^"]+)"', text)
     if not m:
-        raise SystemExit("no MST_VERSION in %s" % h)
+        raise SystemExit("no SM_VERSION in %s" % h)
     return m.group(1)
 
 
@@ -208,7 +208,7 @@ def main():
     if not args.prose:
         return
 
-    plugin = next((r for r in rows if r[0] == "MasterStack.asi" and r[3]), None)
+    plugin = next((r for r in rows if r[0] == "StackMaster.asi" and r[3]), None)
     dmm = next((r for r in rows if r[0].endswith("-DMM.zip") and r[3]), None)
     if not plugin:
         print("\nNo plugin report yet, so no prose.")

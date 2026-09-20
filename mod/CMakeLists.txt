@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
-project(MasterStack LANGUAGES CXX C)
+project(StackMaster LANGUAGES CXX C)
 
-# Master Stack: an ASI plugin for Crimson Desert that raises the stack size of
+# Stack Master: an ASI plugin for Crimson Desert that raises the stack size of
 # every stackable item. It edits no game file. The game's item table is read
 # once at startup and the plugin multiplies each record's own limit as it is
 # read, which is why a game patch does not break it the way a data mod breaks.
@@ -11,7 +11,7 @@ project(MasterStack LANGUAGES CXX C)
 # from include/stack_api.h so Master Looter's Stacks tab can edit either.
 
 if(NOT WIN32)
-    message(FATAL_ERROR "Master Stack targets Windows only.")
+    message(FATAL_ERROR "Stack Master targets Windows only.")
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
@@ -31,7 +31,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(minhook)
 
-add_library(MasterStack SHARED
+add_library(StackMaster SHARED
     src/dllmain.cpp
     src/core/mod.cpp
     src/core/log.cpp
@@ -44,21 +44,21 @@ add_library(MasterStack SHARED
     src/api/api.cpp
 )
 
-target_include_directories(MasterStack PRIVATE src include ${minhook_SOURCE_DIR}/src/hde)
-target_link_libraries(MasterStack PRIVATE minhook)
-target_compile_definitions(MasterStack PRIVATE WIN32_LEAN_AND_MEAN NOMINMAX _CRT_SECURE_NO_WARNINGS)
-target_compile_options(MasterStack PRIVATE /utf-8 /W3 /EHsc)
+target_include_directories(StackMaster PRIVATE src include ${minhook_SOURCE_DIR}/src/hde)
+target_link_libraries(StackMaster PRIVATE minhook)
+target_compile_definitions(StackMaster PRIVATE WIN32_LEAN_AND_MEAN NOMINMAX _CRT_SECURE_NO_WARNINGS)
+target_compile_options(StackMaster PRIVATE /utf-8 /W3 /EHsc)
 
-set_target_properties(MasterStack PROPERTIES PREFIX "" SUFFIX ".asi" OUTPUT_NAME "MasterStack")
+set_target_properties(StackMaster PROPERTIES PREFIX "" SUFFIX ".asi" OUTPUT_NAME "StackMaster")
 
 if(MSVC)
-    target_compile_options(MasterStack PRIVATE /guard:cf)
-    target_link_options(MasterStack PRIVATE /DYNAMICBASE /HIGHENTROPYVA /NXCOMPAT /guard:cf)
+    target_compile_options(StackMaster PRIVATE /guard:cf)
+    target_link_options(StackMaster PRIVATE /DYNAMICBASE /HIGHENTROPYVA /NXCOMPAT /guard:cf)
 endif()
 
-add_custom_command(TARGET MasterStack POST_BUILD
+add_custom_command(TARGET StackMaster POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_SOURCE_DIR}/dist"
-    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:MasterStack>" "${CMAKE_SOURCE_DIR}/dist/"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:StackMaster>" "${CMAKE_SOURCE_DIR}/dist/"
     COMMENT "Staging dist/"
     VERBATIM
 )

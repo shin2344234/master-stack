@@ -1,4 +1,4 @@
-Master Stack 1.0.0 for Crimson Desert 2.02.00 and 2.03.00
+Stack Master 1.0.0 for Crimson Desert 2.02.00 and 2.03.00
 =========================================================
 
 Raises how much of an item one inventory slot holds. Pick a multiplier and
@@ -15,17 +15,17 @@ Install
 
 1. Ultimate ASI Loader must be in bin64 next to CrimsonDesert.exe. If it is
    named version.dll and nothing loads, rename it to winmm.dll.
-2. With the game closed, copy MasterStack.asi into bin64.
-3. Start the game once. MasterStack.ini appears beside the plugin.
+2. With the game closed, copy StackMaster.asi into bin64.
+3. Start the game once. StackMaster.ini appears beside the plugin.
 4. Set the multiplier in the ini and start the game again.
 
-To uninstall, delete the MasterStack files from bin64. Read "Turning it back
+To uninstall, delete the StackMaster files from bin64. Read "Turning it back
 down" first.
 
 Settings
 --------
 
-MasterStack.ini, written on the first run with every setting explained.
+StackMaster.ini, written on the first run with every setting explained.
 
     Multiplier=5      how much one slot holds, as a multiple of the game's own
                       limit for that item. 1 changes nothing and the plugin
@@ -57,7 +57,7 @@ Other mods
 ----------
 
 Private Storage Master 1.1.2 and later carry this same feature. With both
-installed, Master Stack is the one that applies and Private Storage Master
+installed, Stack Master is the one that applies and Private Storage Master
 leaves stacks alone and says so in its log, so the two never multiply the same
 limit twice. Set the multiplier here.
 
@@ -68,7 +68,7 @@ Reporting a problem
 -------------------
 
 Set DebugLog=1, play until it happens, close the game and attach
-MasterStack.log from bin64. It says how many items were raised, the biggest
+StackMaster.log from bin64. It says how many items were raised, the biggest
 limit written, and names the first ten. For anything about the Stacks tab,
 attach MasterLooter.log too.
 

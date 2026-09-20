@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Sign MasterStack.asi with Azure Trusted Signing, then verify it.
+    Sign StackMaster.asi with Azure Trusted Signing, then verify it.
 
 .DESCRIPTION
     Runs signtool with the Azure Trusted Signing dlib against the account in
@@ -21,7 +21,7 @@
     release to the next where a false-positive report clears one hash only.
 
 .EXAMPLE
-    .\sign.ps1                       signs mod\dist\MasterStack.asi
+    .\sign.ps1                       signs mod\dist\StackMaster.asi
     .\sign.ps1 -Path some\other.dll  signs that file instead
     .\sign.ps1 -VerifyOnly           reports the signature already on the file
 #>
@@ -33,7 +33,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')
-if (-not $Path) { $Path = Join-Path $repo 'mod\dist\MasterStack.asi' }
+if (-not $Path) { $Path = Join-Path $repo 'mod\dist\StackMaster.asi' }
 $Path = (Resolve-Path $Path).Path
 
 $tools    = Join-Path $repo 'private\tools'

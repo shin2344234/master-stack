@@ -2,7 +2,7 @@
 #include <cstddef>
 #include <functional>
 
-// MasterStack.ini. Three settings and nothing else: whether the mod runs at all,
+// StackMaster.ini. Three settings and nothing else: whether the mod runs at all,
 // whether the log is verbose, and how much deeper stacks go.
 //
 // Settings can change while the game runs (Master Looter's Stacks tab through
@@ -10,7 +10,7 @@
 // new copy and the old one is kept alive, so a reader on another thread never
 // sees a half-written value. The multiplier in force is the one this launch
 // started with, so a change needs a restart and Startup() is what the hook uses.
-namespace mst::Settings
+namespace sm::Settings
 {
     // The largest multiple a stack limit is raised by. The per-item ceiling in
     // stacks/stacks stops the result running away; this stops a typo like

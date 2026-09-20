@@ -5,7 +5,7 @@
 // rather than written down as an offset, so a game patch that moves code costs
 // nothing and a patch that changes the code turns the feature off with a log
 // line instead of writing somewhere wrong.
-namespace mst::addr
+namespace sm::addr
 {
     struct Stacks
     {

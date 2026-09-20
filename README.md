@@ -1,4 +1,4 @@
-# Master Stack
+# Stack Master
 
 A Crimson Desert plugin that raises how much of an item one inventory slot
 holds. Pick a multiplier and every item that already stacks holds that many
@@ -16,10 +16,10 @@ more of than that, like money, is left as it is.
 
 ## Install
 
-Copy `MasterStack.asi` into `Crimson Desert\bin64`, beside the ASI loader you
-already use. On first run it writes `MasterStack.ini` next to itself.
+Copy `StackMaster.asi` into `Crimson Desert\bin64`, beside the ASI loader you
+already use. On first run it writes `StackMaster.ini` next to itself.
 
-Then set the multiplier in `MasterStack.ini` and restart the game:
+Then set the multiplier in `StackMaster.ini` and restart the game:
 
     Multiplier=5
 
@@ -46,7 +46,7 @@ you take some out. Empty the big stacks before turning it down.
 ## Other mods
 
 [Private Storage Master](https://www.nexusmods.com/crimsondesert/mods/3521) 1.1.2
-and later carry the same feature. With both installed, Master Stack is the one
+and later carry the same feature. With both installed, Stack Master is the one
 that applies and Private Storage Master leaves stacks alone and says so in its
 log, so the two never multiply the same limit twice. Set the multiplier here.
 
@@ -56,7 +56,7 @@ the same limits and the result is whichever the game reads last.
 ## Building
 
 MSVC Build Tools 2022 with the CMake and Ninja it bundles, then
-`mod\build.bat`, which stages `mod\dist\MasterStack.asi`. MinHook is fetched at
+`mod\build.bat`, which stages `mod\dist\StackMaster.asi`. MinHook is fetched at
 configure time for its instruction length decoder; pass
 `-DFETCHCONTENT_FULLY_DISCONNECTED=ON` to reconfigure without fetching again.
 
@@ -76,9 +76,9 @@ yourself.
 
 SHA-256 for 1.0.0:
 
-    4b002d4eaddc3eeb031627c5f1239666e742e83855c82bbd9ad2bfabef3a9cd0  MasterStack-1.0.0-DMM.zip
-    b8a2152943f10bc766c1e35d9c96f5645a7dd11f96321b9c85b0093fe4a9a899  MasterStack-1.0.0.zip
-    6bb2525489715323ccf87f5ac16fd8cabdbc63da545204ee1b9783f26f535eee  MasterStack.asi
+    d2cb122d155b731b93b51b08e69395e6616d82c23de93720e5177e972f0b1916  StackMaster-1.0.0-DMM.zip
+    cba8413d924bd23c46f6de3228ce0d49c0f56894ea0e8da8f48a10cf9a983100  StackMaster-1.0.0.zip
+    d6d47568d76e554d45f0cb77024b3e959cd038684dc10eedab84f84febcd2780  StackMaster.asi
 
 ## Discord and Patreon
 

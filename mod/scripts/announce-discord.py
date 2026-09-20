@@ -47,7 +47,7 @@ def from_keys(name):
 
 def version():
     header = open(os.path.join(ROOT, "mod", "src", "version.h"), encoding="utf-8").read()
-    return re.search(r'MST_VERSION\s+"([^"]+)"', header).group(1)
+    return re.search(r'SM_VERSION\s+"([^"]+)"', header).group(1)
 
 
 
@@ -70,7 +70,7 @@ def post(token, channel, content):
     req = urllib.request.Request(url, data=json.dumps({"content": content}).encode("utf-8"),
                                  headers={"Content-Type": "application/json",
                                           "Authorization": "Bot " + token,
-                                          "User-Agent": "MasterStack-announce"})
+                                          "User-Agent": "StackMaster-announce"})
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.status
 

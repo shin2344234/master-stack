@@ -2,7 +2,7 @@
 
 #include <cstdio>
 
-namespace mst::Paths
+namespace sm::Paths
 {
     static std::wstring g_dir;
     static HMODULE      g_module = nullptr;

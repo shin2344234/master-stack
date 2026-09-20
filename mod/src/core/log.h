@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-namespace mst::Log
+namespace sm::Log
 {
     // printf-style. Lines are buffered until Claim(); after that they go to
     // <base>.log next to the plugin. A copy of recent lines is always kept in
@@ -34,7 +34,7 @@ namespace mst::Log
     bool Debug();
 }
 
-#define LOG(...)     do { if (::mst::Log::Debug()) ::mst::Log::Write("info ", __VA_ARGS__); } while (0)
-#define LOG_OK(...)  do { if (::mst::Log::Debug()) ::mst::Log::Write("ok   ", __VA_ARGS__); } while (0)
-#define LOG_NOTE(...) ::mst::Log::Write("note ", __VA_ARGS__)
-#define LOG_ERR(...) ::mst::Log::Write("error", __VA_ARGS__)
+#define LOG(...)     do { if (::sm::Log::Debug()) ::sm::Log::Write("info ", __VA_ARGS__); } while (0)
+#define LOG_OK(...)  do { if (::sm::Log::Debug()) ::sm::Log::Write("ok   ", __VA_ARGS__); } while (0)
+#define LOG_NOTE(...) ::sm::Log::Write("note ", __VA_ARGS__)
+#define LOG_ERR(...) ::sm::Log::Write("error", __VA_ARGS__)

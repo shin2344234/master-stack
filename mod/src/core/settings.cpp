@@ -10,7 +10,7 @@
 #include "core/paths.h"
 #include "version.h"
 
-namespace mst::Settings
+namespace sm::Settings
 {
     namespace
     {
@@ -26,13 +26,13 @@ namespace mst::Settings
         bool WriteIni(const Values& v)
         {
             FILE* f = nullptr;
-            if (_wfopen_s(&f, Paths::File(MST_INI).c_str(), L"w") != 0 || !f) return false;
+            if (_wfopen_s(&f, Paths::File(SM_INI).c_str(), L"w") != 0 || !f) return false;
             fprintf(f,
                     "; %s %s\n"
                     "; Bigger stacks of stackable items, for Crimson Desert %s.\n"
                     "; Nothing in the game's own files is changed: the mod raises each item's\n"
                     "; stack limit in memory as the game reads its item table.\n\n"
-                    "[MasterStack]\n\n"
+                    "[StackMaster]\n\n"
                     "; 0 turns the whole mod off.\n"
                     "Enabled=%d\n\n"
                     "; 1 writes a line per item raised and keeps every session's log.\n"
@@ -55,7 +55,7 @@ namespace mst::Settings
                     "; Private Storage Master installed this mod is the one that applies, and\n"
                     "; its own StackMultiplier is ignored.\n"
                     "Multiplier=%d\n",
-                    MST_NAME, MST_VERSION, MST_GAME, v.enabled ? 1 : 0, v.debugLog ? 1 : 0, v.multiplier);
+                    SM_NAME, SM_VERSION, SM_GAME, v.enabled ? 1 : 0, v.debugLog ? 1 : 0, v.multiplier);
             fclose(f);
             return true;
         }
@@ -63,7 +63,7 @@ namespace mst::Settings
         void ReadIni(Values& out)
         {
             FILE* f = nullptr;
-            if (_wfopen_s(&f, Paths::File(MST_INI).c_str(), L"r") != 0 || !f) return;
+            if (_wfopen_s(&f, Paths::File(SM_INI).c_str(), L"r") != 0 || !f) return;
             char line[512];
             while (fgets(line, sizeof line, f))
             {
@@ -110,7 +110,7 @@ namespace mst::Settings
             Clamp(v);
             Publish(v);
             if (WriteIni(v)) return 1;
-            if (why && whyLen) snprintf(why, whyLen, "applied, but %s could not be written", Paths::FileUtf8(MST_INI).c_str());
+            if (why && whyLen) snprintf(why, whyLen, "applied, but %s could not be written", Paths::FileUtf8(SM_INI).c_str());
             return 2;
         }
     }
@@ -120,13 +120,13 @@ namespace mst::Settings
     void Load()
     {
         Values v = Defaults();
-        const bool have = GetFileAttributesW(Paths::File(MST_INI).c_str()) != INVALID_FILE_ATTRIBUTES;
+        const bool have = GetFileAttributesW(Paths::File(SM_INI).c_str()) != INVALID_FILE_ATTRIBUTES;
         if (have) ReadIni(v);
         Clamp(v);
         if (!have) WriteIni(v);
         g_startup = new Values(v);
         Publish(v);
-        if (!have) LOG_NOTE("[settings] wrote a default %s", Paths::FileUtf8(MST_INI).c_str());
+        if (!have) LOG_NOTE("[settings] wrote a default %s", Paths::FileUtf8(SM_INI).c_str());
         LOG_NOTE("[settings] Enabled=%d DebugLog=%d Multiplier=%d", v.enabled ? 1 : 0, v.debugLog ? 1 : 0, v.multiplier);
     }
 

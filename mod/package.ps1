@@ -2,13 +2,13 @@
 #
 #   powershell -ExecutionPolicy Bypass -File "<repo>\mod\package.ps1"
 #
-# MasterStack-<version>.zip      manual install: plugin, readme, licences
-# MasterStack-<version>-DMM.zip  Definitive Mod Manager: the plugin alone,
+# StackMaster-<version>.zip      manual install: plugin, readme, licences
+# StackMaster-<version>-DMM.zip  Definitive Mod Manager: the plugin alone,
 #                                  which is all DMM registers.
 #
-# Neither carries an ini. The plugin writes a fully commented one beside itself
-# the first time it runs, and it only brings bindings over from an old
-# MasterStack.ini when no MasterStack.ini exists yet.
+# Neither carries an ini. The plugin writes a fully commented StackMaster.ini
+# beside itself the first time it runs, so an upgrade never overwrites a
+# multiplier someone has already set.
 #
 # Run build.bat first; this script packages what is in dist and refuses if the
 # plugin there is older than the sources.
@@ -20,10 +20,10 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $dist = Join-Path $here 'dist'
 $root = Split-Path -Parent $here
 
-$version = (Select-String -Path (Join-Path $here 'src\version.h') -Pattern '#define MST_VERSION\s+"([^"]+)"').Matches[0].Groups[1].Value
-if (-not $version) { throw 'no MST_VERSION in src\version.h' }
+$version = (Select-String -Path (Join-Path $here 'src\version.h') -Pattern '#define SM_VERSION\s+"([^"]+)"').Matches[0].Groups[1].Value
+if (-not $version) { throw 'no SM_VERSION in src\version.h' }
 
-$asi = Join-Path $dist 'MasterStack.asi'
+$asi = Join-Path $dist 'StackMaster.asi'
 if (-not (Test-Path $asi)) { throw "missing $asi; run build.bat" }
 
 $newestSource = Get-ChildItem (Join-Path $here 'src') -Recurse -File | Sort-Object LastWriteTime -Descending | Select-Object -First 1
@@ -45,7 +45,7 @@ if (-not (Test-Path (Join-Path $root 'LICENSE'))) {
     throw "No LICENSE at the repo root. The archives carry it next to the plugin."
 }
 
-$staging = Join-Path $env:TEMP "psm-package-$version"
+$staging = Join-Path $env:TEMP "sm-package-$version"
 Remove-Item $staging -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Path $staging | Out-Null
 Copy-Item $asi $staging
@@ -53,14 +53,14 @@ Copy-Item (Join-Path $here 'README.md') $staging
 Copy-Item (Join-Path $root 'LICENSE') $staging
 Copy-Item (Join-Path $root 'THIRD_PARTY_NOTICES.md') $staging
 
-$plain = Join-Path $dist "MasterStack-$version.zip"
-$dmm = Join-Path $dist "MasterStack-$version-DMM.zip"
+$plain = Join-Path $dist "StackMaster-$version.zip"
+$dmm = Join-Path $dist "StackMaster-$version-DMM.zip"
 Remove-Item $plain, $dmm -Force -ErrorAction SilentlyContinue
 Compress-Archive -Path (Join-Path $staging '*') -DestinationPath $plain
 Compress-Archive -Path $asi -DestinationPath $dmm
 Remove-Item $staging -Recurse -Force
 
-Write-Host "`nMaster Stack $version"
+Write-Host "`nStack Master $version"
 foreach ($z in @($plain, $dmm)) {
     Write-Host ("  {0,-34} {1,9:N0} bytes" -f (Split-Path $z -Leaf), (Get-Item $z).Length)
     [System.IO.Compression.ZipFile]::OpenRead($z).Entries | ForEach-Object { Write-Host "      $($_.FullName)" }

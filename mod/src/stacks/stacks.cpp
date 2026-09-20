@@ -10,7 +10,7 @@
 #include "game/farhook.h"
 #include "game/mem.h"
 
-namespace mst::stacks
+namespace sm::stacks
 {
     namespace
     {

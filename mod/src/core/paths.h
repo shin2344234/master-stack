@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <string>
 
-namespace mst::Paths
+namespace sm::Paths
 {
     void Init(HMODULE module);
     // Folder the .asi lives in, with a trailing backslash.

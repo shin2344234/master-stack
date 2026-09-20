@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Publish the current release to the Master Stack mod page.
+    Publish the current release to the Stack Master mod page.
 
 .DESCRIPTION
     A wrapper around Publish-NexusModUpdate.ps1 that fills in the three things
@@ -8,7 +8,7 @@
     does not depend on remembering an id.
 
         Mod id  (not set)   the v3 id, not the page number in the URL
-        File id (not set)   the active "MasterStack ... DMM" entry
+        File id (not set)   the active "StackMaster ... DMM" entry
 
     Neither exists until the Nexus page does. Create the page and the first
     file by hand, read both back with nexus-ids.py, and write them into $ids
@@ -60,12 +60,12 @@ $repo = Split-Path $mod -Parent
 
 if ([string]::IsNullOrWhiteSpace($Version)) {
     $header = Join-Path $mod 'src\version.h'
-    $match  = Select-String -LiteralPath $header -Pattern '#define\s+MST_VERSION\s+"([^"]+)"'
-    if (-not $match) { throw "No MST_VERSION in $header" }
+    $match  = Select-String -LiteralPath $header -Pattern '#define\s+SM_VERSION\s+"([^"]+)"'
+    if (-not $match) { throw "No SM_VERSION in $header" }
     $Version = $match.Matches[0].Groups[1].Value
 }
 
-$archive   = Join-Path $mod  ("dist\MasterStack-{0}-DMM.zip" -f $Version)
+$archive   = Join-Path $mod  ("dist\StackMaster-{0}-DMM.zip" -f $Version)
 $changelog = Join-Path $repo ("private\nexus\nexus-changelog-{0}.txt" -f $Version)
 
 if (-not (Test-Path -LiteralPath $archive)) {
@@ -84,7 +84,7 @@ Write-Host ("Version $Version, from version.h") -ForegroundColor Cyan
 # once in the duplicate check and once in the arguments, which is one edit away
 # from a release attaching itself to the wrong file entry.
 $ids = @{
-    FileId = ''   # the active "MasterStack ... DMM" entry, from nexus-ids.py once it exists
+    FileId = ''   # the active "StackMaster ... DMM" entry, from nexus-ids.py once it exists
     ModId  = '38521561681372'   # the v3 mod id, not the page number in the URL (page 3548)
 }
 if ([string]::IsNullOrWhiteSpace($ids.FileId) -or [string]::IsNullOrWhiteSpace($ids.ModId)) {
@@ -127,7 +127,7 @@ $args = @{
     FileId                    = $ids.FileId
     ModId                     = $ids.ModId
     Version                   = $Version
-    DisplayName               = ("MasterStack {0} DMM" -f $Version)
+    DisplayName               = ("StackMaster {0} DMM" -f $Version)
     ChangelogPath             = $changelog
     Category                  = 'main'
     UpdateModVersion          = $true

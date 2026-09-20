@@ -12,7 +12,7 @@ BSD licence. Both licence texts ship with that repository.
 
 ## Earlier mods with the same idea
 
-Master Stack was written from scratch and contains no code from any other mod.
+Stack Master was written from scratch and contains no code from any other mod.
 
 **Fat Stacks, by momenaya.** https://www.nexusmods.com/crimsondesert/mods/157.
 Fat Stacks gives the same result a different way, by replacing a game data group

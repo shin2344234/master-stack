@@ -5,7 +5,7 @@
 // multiply the record's own stack limit. Nothing in the game's files is touched,
 // which is what separates this from a data mod like Fat Stacks, and why a game
 // patch does not break it.
-namespace mst::stacks
+namespace sm::stacks
 {
     // Why stacks are not being changed. The numbers are the STACK_STANDDOWN_*
     // values in include/stack_api.h and must stay in step with them.

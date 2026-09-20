@@ -6,7 +6,7 @@
 #include "core/log.h"
 #include "game/mem.h"
 
-namespace mst::addr
+namespace sm::addr
 {
     namespace
     {

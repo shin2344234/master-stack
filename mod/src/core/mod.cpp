@@ -17,29 +17,29 @@ namespace
 
     DWORD WINAPI Worker(LPVOID)
     {
-        mst::Settings::Load();
+        sm::Settings::Load();
         // Without DebugLog a session is a handful of lines, and the last two are
         // all a report needs, including the one before a crash and a relaunch.
-        if (!mst::Log::Debug()) mst::Log::Prune(MST_FILEBASE, 2);
-        LOG_NOTE("[mod] %s %s for Crimson Desert %s, game image at 0x%p, %zu bytes", MST_NAME, MST_VERSION, MST_GAME,
-                 reinterpret_cast<void*>(mst::mem::Game().base), mst::mem::Game().size);
-        if (!mst::Settings::Get().enabled)
+        if (!sm::Log::Debug()) sm::Log::Prune(SM_FILEBASE, 2);
+        LOG_NOTE("[mod] %s %s for Crimson Desert %s, game image at 0x%p, %zu bytes", SM_NAME, SM_VERSION, SM_GAME,
+                 reinterpret_cast<void*>(sm::mem::Game().base), sm::mem::Game().size);
+        if (!sm::Settings::Get().enabled)
         {
             LOG_NOTE("[mod] Enabled=0, so the mod does nothing");
             return 0;
         }
-        mst::stacks::Start();
+        sm::stacks::Start();
         // The game reads its item table a few seconds in. Wait past that, then say
         // what came of it, so the log answers "did it work" without a key to press.
         const DWORD started = GetTickCount();
         while (!g_stop.load() && GetTickCount() - started < 15000) Sleep(250);
         if (g_stop.load()) return 0;
-        mst::stacks::Flush();
+        sm::stacks::Flush();
         return 0;
     }
 }
 
-namespace mst::Mod
+namespace sm::Mod
 {
     // crashpad_handler.exe loads ASI plugins too. That instance does nothing.
     static constexpr size_t kMinGameImage = 64ull * 1024 * 1024;
@@ -50,7 +50,7 @@ namespace mst::Mod
         const size_t size = mem::Game().size;
         // It writes no log: one file per crash handler launch piled up beside the plugin.
         if (!mem::Game().base || size < kMinGameImage) return;
-        Log::Claim(MST_FILEBASE);
+        Log::Claim(SM_FILEBASE);
         g_thread = CreateThread(nullptr, 0, Worker, nullptr, 0, nullptr);
     }
 
