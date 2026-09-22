@@ -12,7 +12,8 @@ and there is no archive to restore when you remove it.
 
 Items the game does not stack, such as gear and quest items, never start
 stacking. No stack goes past 999999, and an item the game already lets you hold
-more of than that, like money, is left as it is.
+more of than that, like money, is left as it is. Replenishing Arrows, Bullets
+and Cannonballs keep the game's own stack size.
 
 ## Install
 
@@ -74,11 +75,11 @@ and writes no registry key and no game file. It is code signed by Seth Walker
 under Microsoft's identity-verified chain. Every line is here to read or build
 yourself.
 
-SHA-256 for 1.0.0:
+SHA-256 for 1.0.1:
 
-    37483b08773e8f40ebbb671395d49cd2c39e46003af30f9dbc9b90fd8da44b28  StackMaster-1.0.0-DMM.zip
-    b294d98cec0615aea776acd1e13e4f498f013cbb94000957c68a3433daf48142  StackMaster-1.0.0.zip
-    7eb1e71644466c2f8d42c1440b590402b42f065e442557eddcf9cc758c315319  StackMaster.asi
+    9ebb35ce8a0e020be7f076d9421446d55a32eabe31dc158abb91c882ddf3331b  StackMaster-1.0.1-DMM.zip
+    392464cc4d7639f500c07ade7bddf7d8793bbe3fc3f69c8d0cca41d40a7b8edb  StackMaster-1.0.1.zip
+    24cd6e1d7747fbea22a6f7aca255bde62f459ec4beee32b9f48d9bc3c878cb4a  StackMaster.asi
 
 ## Discord and Patreon
 

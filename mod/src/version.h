@@ -1,7 +1,7 @@
 #pragma once
 
 // Bump it with the release that goes with it, never on its own.
-#define SM_VERSION  "1.0.0"
+#define SM_VERSION  "1.0.1"
 #define SM_NAME     "Stack Master"
 // The game builds the plugin was last checked against. 2.03.00 is exe
 // 1.0.0.2944 and 2.02.00 is 1.0.0.2850. The anchor resolves on both, so the

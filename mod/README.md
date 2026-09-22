@@ -1,4 +1,4 @@
-Stack Master 1.0.0 for Crimson Desert 2.02.00 and 2.03.00
+Stack Master 1.0.1 for Crimson Desert 2.02.00 and 2.03.00
 =========================================================
 
 Raises how much of an item one inventory slot holds. Pick a multiplier and
@@ -36,7 +36,8 @@ StackMaster.ini, written on the first run with every setting explained.
 
 Items the game does not stack, such as gear and quest items, never start
 stacking. No stack goes past 999999, and an item the game already lets you hold
-more of than that, like money, is left as it is.
+more of than that, like money, is left as it is. Replenishing Arrows, Bullets
+and Cannonballs keep the game's own stack size.
 
 Editing the ini takes effect the next time the game starts, because the file is
 read once. With Master Looter 1.6.33 or later you can change the multiplier from
