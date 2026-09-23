@@ -3,7 +3,7 @@
 A Crimson Desert plugin that raises how much of an item one inventory slot
 holds. Pick a multiplier and every item that already stacks holds that many
 times as much: at 5, a stack of 100 becomes 500 and a stack of 20 becomes 100.
-Built for Crimson Desert 2.02.00 and 2.03.00.
+Built for Crimson Desert 2.02.00, 2.03.00 and 2.03.02.
 
 It changes no game file. The game reads its item table once while it starts, and
 the plugin raises each item's own limit as that happens, in memory. That is the
@@ -75,11 +75,11 @@ and writes no registry key and no game file. It is code signed by Seth Walker
 under Microsoft's identity-verified chain. Every line is here to read or build
 yourself.
 
-SHA-256 for 1.0.1:
+SHA-256 for 1.0.2:
 
-    9ebb35ce8a0e020be7f076d9421446d55a32eabe31dc158abb91c882ddf3331b  StackMaster-1.0.1-DMM.zip
-    392464cc4d7639f500c07ade7bddf7d8793bbe3fc3f69c8d0cca41d40a7b8edb  StackMaster-1.0.1.zip
-    24cd6e1d7747fbea22a6f7aca255bde62f459ec4beee32b9f48d9bc3c878cb4a  StackMaster.asi
+    10fa618ac83582127f9202f2eaa86a4e9b86327be405e47bf8a37746242f4bbb  StackMaster-1.0.2-DMM.zip
+    9742227f95aea3986806e3a0dd821bbb8c337e4c49428d0b71e5a907418ede61  StackMaster-1.0.2.zip
+    5658b49f9ca8c9331a0d7975afada2fc1f53f9b89d731b12cf9bfaf9d9e79e0c  StackMaster.asi
 
 ## Discord and Patreon
 
