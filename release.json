@@ -1,0 +1,44 @@
+{
+  "name": "Stack Master",
+  "fileBase": "StackMaster",
+  "version": {
+    "header": "mod/src/version.h",
+    "macro": "SM_VERSION"
+  },
+  "scriptsDir": "mod/scripts",
+  "dist": "mod/dist",
+  "sources": [
+    "mod/src",
+    "mod/include",
+    "mod/CMakeLists.txt"
+  ],
+  "manualZip": [
+    "mod/README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "gates": [],
+  "evergreen": [
+    "private/nexus/nexus-description.bbcode",
+    "README.md"
+  ],
+  "github": "shin2344234/stack-master",
+  "nexus": {
+    "game": "crimsondesert",
+    "page": "3548",
+    "modId": "38521561681372",
+    "dmmFileId": "7995894",
+    "manualFileId": "7995897"
+  },
+  "discord": {
+    "channel": "1547305058922668072"
+  },
+  "requires": [
+    {
+      "name": "Private Storage Master",
+      "dir": "../Private Storage Master",
+      "minVersion": "1.1.2",
+      "why": "PSM 1.1.1 has no stand-down, so installing both would multiply stacks twice"
+    }
+  ]
+}
